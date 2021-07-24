@@ -1,0 +1,44 @@
+# Uupdate the dockerfile with the latest versions of hlint and fourmolu
+# Creates a PR to update the dockerfile if new versions have been released
+name: dev-tools update
+on: 
+  schedule:
+  # run every 6 hours
+  - cron: '0 */6 * * *'
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: update dockerfiles
+        run: src/update-dev-tools.sh
+
+      - name: run diff
+        run: git diff
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v3
+        id: create-pr
+        with:
+          title: '[Auto] Update hlint and fourmolu image'
+          body: 'Close this PR, this is for testing purposes only'
+          branch: auto/update-image
+          reviewers: scruffystuffs
+          # Github won't run actions when triggered by a github token
+          # Their workaround is to use personal tokens, we use a purpose-made token for fossabot.
+          token: ${{ secrets.FOSSABOT_TOKEN }}
+
+      - name: Enable auto-merge
+        uses: peter-evans/enable-pull-request-automerge@v1
+        if: steps.create-pr.outputs.pull-request-operation == 'created'
+        with:
+          # Same reason as above
+          token: ${{ secrets.FOSSABOT_TOKEN }}
+          merge-method: squash
+          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}

@@ -1,0 +1,22 @@
+# Build and publish the dockerfile
+name: publish
+on:
+  push:
+    branches:
+     - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build and push
+        # env:
+        #   GITHUB_TOKEN: ${{ github.token }}
+        run: src/build-and-push-image.sh 
+

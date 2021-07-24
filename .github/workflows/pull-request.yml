@@ -1,0 +1,68 @@
+# Test PR:
+# - Run shellcheck
+# - Run markdownlint
+# - Run Docker lint (using hadolint)
+# - Build docker image
+name: Test PR
+on:
+  pull_request
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install markdownlint tool
+      run: sudo gem install mdl
+
+    - name: run markdown linter
+      run: |
+        mdl $(find . -name '*.md')
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # - name: install shellcheck
+    #   run: apt install shellcheck -y
+
+    - name: run shellcheck
+      run: shellcheck **/*.*sh
+  
+  docker-lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: run docker lint
+      run: docker run --rm -i ghcr.io/hadolint/hadolint
+
+  test-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: get git short hash
+      id: shorthash
+      run: |
+        echo "::set-output name=shorthash::$(git rev-parse --short HEAD)"
+
+    - name: Build docker image
+      env:
+        SHORTHASH: ${{ steps.shorthash.outputs.shorthash }}
+      # Use - to only send the docker file, avoids sending build context
+      run: docker build --tag $SHORTHASH - < src/Dockerfile
