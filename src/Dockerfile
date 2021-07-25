@@ -1,8 +1,8 @@
 # Build the correct binaries
 FROM fossa/haskell-static-alpine:ghc-8.10.4 as builder
 RUN cabal update
-RUN cabal install hlint-3.3.0
-RUN cabal install fourmolu-0.2.0.0
+RUN cabal install hlint-3.3.1
+RUN cabal install fourmolu-0.3.0.0
 # Replace symlinks with their actual files so we can slim down the image
 RUN cp $(readlink -f $(which hlint)) /root/.cabal/bin/hlint
 RUN cp $(readlink -f $(which fourmolu)) /root/.cabal/bin/fourmolu
