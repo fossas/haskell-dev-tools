@@ -46,7 +46,8 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: run docker lint
-      run: docker run --rm -i ghcr.io/hadolint/hadolint
+      run: |
+        docker run --rm -i ghcr.io/hadolint/hadolint < src/Dockerfile
 
   test-build:
     runs-on: ubuntu-latest
