@@ -1,4 +1,4 @@
-#! /bin/bash -e
+#! /bin/bash -ex
 
 # Don't source this file or this line won't work.
 dockerfile="$(dirname "$0")/Dockerfile"
@@ -15,7 +15,7 @@ extract_latest_version () {
 
 edit_dockerfile () {
     # name=$1, version=$2
-    sed --in-place "s/RUN cabal install $1-.*/RUN cabal install $1-$2/" "$dockerfile"
+    sed --regexp-extended --in-place "s/$1-[0-9\.]+/$1-$2/" "$dockerfile"
 }
 
 update_package () {
@@ -39,6 +39,7 @@ execute () {
     cp "$dockerfile" "${dockerfile}.bak"
     update_package hlint "$_tempdir"
     update_package fourmolu "$_tempdir"
+    diff "${dockerfile}.bak" "$dockerfile"
     rm --recursive --force "$_tempdir"
 }
 
