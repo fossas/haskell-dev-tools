@@ -20,11 +20,11 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: fossabot
           # We use fossabot as the publisher
           # This means that fossabot is the only actor which can update the dockerfile through automation
           # This prevents other PR's from publishing out-of-date images.
-          password: ${{ secrets.FOSSABOT_TOKEN }}
+          password: ${{ secrets.FOSSABOT_PUBLISH_TOKEN }}
 
       - name: Build and push image
         uses: docker/build-push-action@v2
