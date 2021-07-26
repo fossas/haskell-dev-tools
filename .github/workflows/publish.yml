@@ -23,7 +23,7 @@ jobs:
         # Because we always squash commits we only need to check a single commit
         # TODO: auto-create a stable branch to compare to, and merge the published version when successful
         run: |
-          echo "::set-output name=names::$(git diff --name-only main HEAD)"
+          echo "::set-output name=names::$(git diff --name-only refs/heads/main HEAD)"
       
       - name: Login to GH container registry
         uses: docker/login-action@v1
