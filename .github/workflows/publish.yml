@@ -30,7 +30,7 @@ jobs:
       # if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
+        username: fossabot
         password: ${{ github.token }}
 
     - name: Set up Docker Buildx
