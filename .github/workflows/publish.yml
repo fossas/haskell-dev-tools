@@ -2,7 +2,6 @@
 name: publish
 on:
   workflow_dispatch:
-  pull_request:
   push:
     branches:
      - main
@@ -16,18 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    # - name: Check if dockerfile has been modified
-    #   id: files-changed
-    #   # Outputs the names of the changed files of the last commit
-    #   # Because we always squash commits we only need to check a single commit
-    #   # TODO: auto-create a stable branch to compare to, and merge the published version when successful
-    #   run: |
-    #     echo "::set-output name=names::$(git diff --name-only main HEAD)"
     
     - name: Login to GH container registry
       uses: docker/login-action@v1
-      # if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
       with:
         registry: ghcr.io
         username: fossabot
@@ -35,11 +25,9 @@ jobs:
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
-      # if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
 
     - name: Cache Docker layers
       uses: actions/cache@v2
-      # if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-
@@ -48,7 +36,6 @@ jobs:
 
     - name: Build and push image
       uses: docker/build-push-action@v2
-      # if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
       with:
         tags: 'ghcr.io/fossas/haskell-dev-tools:test'
         push: true
