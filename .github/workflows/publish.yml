@@ -15,9 +15,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Check if dockerfile has been modified
+        id: files-changed
+        # Outputs the names of the changed files of the last commit
+        # Because we always squash commits we only need to check a single commit
+        # TODO: auto-create a stable branch to compare to, and merge the published version when successful
+        run: |
+          echo "::set-output name=names::$(git diff --name-only HEAD~1 HEAD)"
       
       - name: Login to GH container registry
         uses: docker/login-action@v1
+        if: ${{ contains(steps.files-changed.outputs.names, 'src/Dockerfile') }}
         with:
           registry: ghcr.io
           username: fossabot
@@ -26,6 +35,6 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v2
         with:
-          tags: 'haskell-dev-tools:8.10.4'
+          tags: 'ghcr.io/fossas/haskell-dev-tools:8.10.4'
           push: true
           context: ./src
