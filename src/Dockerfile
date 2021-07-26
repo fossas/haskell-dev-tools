@@ -9,3 +9,4 @@ RUN cp "$(readlink -f "$(which hlint)")" "$(readlink -f "$(which fourmolu)")" /r
 FROM fossa/haskell-static-alpine:ghc-8.10.4 as final
 COPY --from=builder /root/.cabal/bin/hlint /root/.cabal/bin/hlint
 COPY --from=builder /root/.cabal/bin/fourmolu /root/.cabal/bin/fourmolu
+RUN echo cachebust
