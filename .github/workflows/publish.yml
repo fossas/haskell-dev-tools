@@ -37,7 +37,7 @@ jobs:
     - name: Build and push image
       uses: docker/build-push-action@v2
       with:
-        tags: 'ghcr.io/fossas/haskell-dev-tools:test'
+        tags: 'ghcr.io/fossas/haskell-dev-tools:8.10.4'
         push: true
         context: ./src
         cache-from: type=local,src=/tmp/.buildx-cache
