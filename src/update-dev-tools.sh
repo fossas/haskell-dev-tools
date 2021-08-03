@@ -1,4 +1,4 @@
-#! /bin/bash -ex
+#! /bin/bash -e
 
 # Don't source this file or this line won't work.
 dockerfile="$(dirname "$0")/Dockerfile"
@@ -34,13 +34,29 @@ update_package () {
     edit_dockerfile "$package_name" "$version"
 }
 
+echoerr () {
+    echo "$@" 1>&2
+}
+
+log () {
+    echoerr "$@"
+}
+
 execute () {
+    log "Creating tempdir"
     _tempdir=$(mktemp --directory)
+    log "Backing up Dockerfile for diffing"
     cp "$dockerfile" "${dockerfile}.bak"
+    log "Updating hlint"
     update_package hlint "$_tempdir"
+    log "Updating fourmolu"
     update_package fourmolu "$_tempdir"
-    diff "${dockerfile}.bak" "$dockerfile"
+    # We don't care about the exit code, we just want the diff output
+    log "Running diff to check for changes"
+    diff "${dockerfile}.bak" "$dockerfile" || true
+    log "Cleaning up temp files"
     rm --recursive --force "$_tempdir"
+    log "Done."
 }
 
 execute
