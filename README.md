@@ -31,5 +31,5 @@ See #22 for an example PR.
 You can enable auto-merge on your PR, and it will automatically publish to
 the container registry after about 1 hour (due to long build times).
 
-Once it's published, you can immediately use it in the CI at the 
+Once it's published, you can immediately use it in the CI at the
 fossas/fossa-cli repo.
