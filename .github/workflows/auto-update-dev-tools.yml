@@ -30,6 +30,7 @@ jobs:
           title: '[Auto] Update hlint and fourmolu image'
           body: 'This PR should be merged automatically.  If it is not merged within 30 minutes, or if all checks have completed, then there is a workflow problem.'
           branch: auto/update-image
+          reviewers: scruffystuffs
           # Github won't run actions when triggered by a github token, intentional limitation.
           # Their workaround is to use personal tokens, we use a purpose-made token for fossabot.
           token: ${{ secrets.FOSSABOT_TOKEN }}
