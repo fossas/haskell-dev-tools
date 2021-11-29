@@ -51,6 +51,8 @@ execute () {
     update_package hlint "$_tempdir"
     log "Updating fourmolu"
     update_package fourmolu "$_tempdir"
+    log "Updating cabal-fmt"
+    update_package cabal-fmt "$_tempdir"
     # We don't care about the exit code, we just want the diff output
     log "Running diff to check for changes"
     diff "${dockerfile}.bak" "$dockerfile" || true
