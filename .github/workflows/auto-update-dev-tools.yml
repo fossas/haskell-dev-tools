@@ -3,8 +3,8 @@
 name: dev-tools update
 on: 
   schedule:
-    # run every 6 hours
-    - cron: '0 */6 * * *'
+    # run once, each monday+wednesday+friday, at 4AM PST (UTC-8:00)
+    - cron: '0 12 * * 1,3,5'
   workflow_dispatch:
 
 jobs:
