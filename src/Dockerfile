@@ -1,7 +1,7 @@
 # Build the correct binaries
 FROM fossa/haskell-static-alpine:ghc-9.0.2 as builder-9.0
 LABEL org.opencontainers.image.source = "https://github.com/fossas/haskell-dev-tools"
-RUN cabal update && cabal install hlint-3.4 && cabal install fourmolu-0.6.0.0 
+RUN cabal update && cabal install hlint-3.4.1 && cabal install fourmolu-0.7.0.1 
 # Replace symlinks with their actual files so we can slim down the image later
 RUN cp "$(readlink -f "$(which hlint)")" "$(readlink -f "$(which fourmolu)")" /root/.cabal/bin/
 
