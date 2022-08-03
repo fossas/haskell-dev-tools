@@ -1,7 +1,8 @@
-# Uupdate the dockerfile with the latest versions of hlint and fourmolu
-# Creates a PR to update the dockerfile if new versions have been released
+# On a schedule, this workflow checks whether new tool versions have been
+# released. If so, this workflow runs `update-dev-tools.sh`, which updates the
+# tool versions in the Dockerfile. It then opens and auto-merges an update PR.
 name: dev-tools update
-on: 
+on:
   schedule:
     # run once, each monday+wednesday+friday, at 4AM PST (UTC-8:00)
     - cron: '0 12 * * 1,3,5'
