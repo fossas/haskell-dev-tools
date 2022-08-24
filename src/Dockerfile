@@ -3,7 +3,7 @@ FROM fossa/haskell-static-alpine:ghc-9.0.2 as builder-9.0
 
 RUN cabal update && cabal install --install-method=copy \
   hlint-3.4.1 \
-  fourmolu-0.7.0.1 \
+  fourmolu-0.8.2.0 \
   prune-juice-0.7 \
   hadolint-2.11.0
 
