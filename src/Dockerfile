@@ -19,7 +19,7 @@ RUN cabal update && cabal install --install-method=copy \
 FROM fossa/haskell-static-alpine:ghc-9.0.2 as final
 
 # Install rust toolchain
-RUN mkdir -p ~/.cargo/bin && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile=minimal -y --default-toolchain 1.63.0
+RUN /bin/ash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | /bin/ash -s -- --profile=minimal -y --default-toolchain 1.63.0"
 ENV PATH="/root/.cargo/bin:$PATH"
 RUN rustup component add rustfmt && rustup component add clippy
 

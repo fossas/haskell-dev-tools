@@ -69,7 +69,7 @@ execute () {
     log "Updating hadolint"
     update_package hadolint "$_tempdir"
     log "Updating rust"
-    update_rust $(get_latest_rust)
+    update_rust "$(get_latest_rust)"
     # We don't care about the exit code, we just want the diff output
     log "Running diff to check for changes"
     diff "${dockerfile}.bak" "$dockerfile" || true
