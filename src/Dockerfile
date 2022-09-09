@@ -18,6 +18,11 @@ RUN cabal update && cabal install --install-method=copy \
 # Copy the built binaries into a smaller image.
 FROM fossa/haskell-static-alpine:ghc-9.0.2 as final
 
+# Install rust toolchain
+RUN mkdir -p ~/.cargo/bin && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile=minimal -y --default-toolchain 1.63.0
+ENV PATH="/root/.cargo/bin:$PATH"
+RUN rustup component add rustfmt && rustup component add clippy
+
 LABEL org.opencontainers.image.source = "https://github.com/fossas/haskell-dev-tools"
 
 COPY --from=builder-9.0 /root/.cabal/bin/hlint /root/.cabal/bin/hlint

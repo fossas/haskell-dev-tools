@@ -3,6 +3,15 @@
 # Don't source this file or this line won't work.
 dockerfile="$(dirname "$0")/Dockerfile"
 
+get_latest_rust () {
+    curl --silent https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | sed -nE 's/Version[[:space:]]+([0-9.]+).+/\1/p' | head -n 1
+}
+
+update_rust () {
+    # name=$1 version = $2
+    gsed --in-place -E "s/--default-toolchain [0-9.]+/--default-toolchain $1/" "$dockerfile"
+}
+
 get_versions () {
     # name=$1, json_file=$2
     curl --show-error --silent --location --header 'Accept: application/json' "https://hackage.haskell.org/package/${1}/preferred" > "$2"
@@ -59,6 +68,8 @@ execute () {
     update_package packdeps "$_tempdir"
     log "Updating hadolint"
     update_package hadolint "$_tempdir"
+    log "Updating rust"
+    update_rust $(get_latest_rust)
     # We don't care about the exit code, we just want the diff output
     log "Running diff to check for changes"
     diff "${dockerfile}.bak" "$dockerfile" || true
