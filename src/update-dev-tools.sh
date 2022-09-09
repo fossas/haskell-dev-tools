@@ -9,7 +9,7 @@ get_latest_rust () {
 
 update_rust () {
     # name=$1 version = $2
-    gsed --in-place -E "s/--default-toolchain [0-9.]+/--default-toolchain $1/" "$dockerfile"
+    sed --in-place -E "s/--default-toolchain [0-9.]+/--default-toolchain $1/" "$dockerfile"
 }
 
 get_versions () {
