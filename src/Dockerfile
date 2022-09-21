@@ -3,9 +3,9 @@ FROM fossa/haskell-static-alpine:ghc-9.0.2 as builder-9.0
 
 # By installing these separately, we prevent the dependecies of one package from conflicting with the others
 RUN cabal update && \
-    cabal install --install-method=copy hlint-3.4.1 \
-    cabal install --install-method=copy fourmolu-0.8.2.0 \
-    cabal install --install-method=copy prune-juice-0.7 \
+    cabal install --install-method=copy hlint-3.4.1 && \
+    cabal install --install-method=copy fourmolu-0.8.2.0 && \
+    cabal install --install-method=copy prune-juice-0.7 && \
     cabal install --install-method=copy hadolint-2.11.0
 
 # cabal-fmt and packdeps only build on GHC 8.10, but still work for projects
@@ -14,7 +14,7 @@ FROM fossa/haskell-static-alpine:ghc-8.10.7 as builder-8.10
 
 # By installing these separately, we prevent the dependecies of one package from conflicting with the others
 RUN cabal update && \
-    cabal install --install-method=copy cabal-fmt-0.1.5.1 \
+    cabal install --install-method=copy cabal-fmt-0.1.5.1 && \
     cabal install --install-method=copy packdeps-0.6.0.0
 
 # Copy the built binaries into a smaller image.
