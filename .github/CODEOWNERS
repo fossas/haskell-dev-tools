@@ -1,4 +1,4 @@
-/src/Dockerfile @scruffystuffs
-/src/update-dev-tools.sh @scruffystuffs
+/src/Dockerfile @fossas/analysis
+/src/update-dev-tools.sh @fossas/analysis
 
-/.github/workflows/* @scruffystuffs
+/.github/workflows/* @fossas/analysis
