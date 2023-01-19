@@ -31,7 +31,6 @@ jobs:
           title: '[Auto] Update hlint and fourmolu image'
           body: 'This PR should be approved once the latest HLS includes this fourmolu version.'
           branch: auto/update-image
-          reviewers: scruffystuffs
           # Github won't run actions when triggered by a github token, intentional limitation.
           # Their workaround is to use personal tokens, we use a purpose-made token for fossabot.
           token: ${{ secrets.FOSSABOT_TOKEN }}
