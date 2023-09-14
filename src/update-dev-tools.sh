@@ -53,10 +53,6 @@ execute () {
     update_package fourmolu "$_tempdir"
     log "Updating cabal-fmt"
     update_package cabal-fmt "$_tempdir"
-    log "Updating prune-juice"
-    update_package prune-juice "$_tempdir"
-    log "Updating packdeps"
-    update_package packdeps "$_tempdir"
     log "Updating hadolint"
     update_package hadolint "$_tempdir"
     # We don't care about the exit code, we just want the diff output
