@@ -28,5 +28,4 @@ LABEL org.opencontainers.image.source = "https://github.com/fossas/haskell-dev-t
 COPY --from=builder-9.4 /root/.local/bin/hlint /root/.cabal/bin/hlint
 COPY --from=builder-9.4 /root/.local/bin/fourmolu /root/.cabal/bin/fourmolu
 COPY --from=builder-9.4 /root/.local/bin/cabal-fmt /root/.cabal/bin/cabal-fmt
-COPY --from=builder-8.10 /root/.cabal/bin/packdeps /root/.cabal/bin/packdeps
 COPY --from=builder-9.0 /root/.cabal/bin/hadolint /root/.cabal/bin/hadolint
