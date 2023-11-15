@@ -1,4 +1,1 @@
-/src/Dockerfile @fossas/analysis
-/src/update-dev-tools.sh @fossas/analysis
-
-/.github/workflows/* @fossas/analysis
+* @fossas/analysis @fossas/platform
