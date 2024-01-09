@@ -17,6 +17,7 @@ repo is released warranty-free into the public domain, under
 
 The image is published as `ghcr.io/fossas/haskell-dev-tools:{version}`, where
 `version` is the GHC compiler version we target.
+See the [package page](https://ghcr.io/fossas/haskell-dev-tools) for more details.
 
 ## Updating the container
 
@@ -35,6 +36,11 @@ Once it's published, you can immediately use it in the CI at the
 fossas/fossa-cli repo.
 
 ## Changelog
+
+### GHC 9.4.8
+
+- GHC is now version 9.4.8
+- cabal-install is now version 3.10.2.0
 
 ### GHC 9.4.7
 
