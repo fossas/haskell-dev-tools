@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Login to GH container registry
       uses: docker/login-action@v1
       with:
@@ -37,7 +37,7 @@ jobs:
     - name: Build and push image
       uses: docker/build-push-action@v2
       with:
-        tags: 'ghcr.io/fossas/haskell-dev-tools:9.4.7'
+        tags: 'ghcr.io/fossas/haskell-dev-tools:9.4.8'
         push: true
         context: ./src
         cache-from: type=local,src=/tmp/.buildx-cache
