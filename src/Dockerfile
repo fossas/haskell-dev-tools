@@ -3,7 +3,7 @@ FROM fossa/haskell-static-alpine:ghc-9.4.8 as builder-9.4
 
 # By installing these separately, we prevent the dependecies of one package from conflicting with the others
 RUN cabal update && \
-    cabal install --install-method=copy hlint-3.6.1 && \
+    cabal install --install-method=copy hlint-3.8 && \
     cabal install --install-method=copy fourmolu-0.14.1.0 && \
     cabal install --install-method=copy cabal-fmt-0.1.10
 
