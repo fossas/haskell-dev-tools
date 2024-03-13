@@ -5,7 +5,7 @@ FROM fossa/haskell-static-alpine:ghc-9.4.8 as builder-9.4
 RUN cabal update && \
     cabal install --install-method=copy hlint-3.8 && \
     cabal install --install-method=copy fourmolu-0.15.0.0 && \
-    cabal install --install-method=copy cabal-fmt-0.1.10
+    cabal install --install-method=copy cabal-fmt-0.1.11
 
 FROM fossa/haskell-static-alpine:ghc-9.0.2 as builder-9.0
 
