@@ -37,6 +37,12 @@ fossas/fossa-cli repo.
 
 ## Changelog
 
+### GHC 9.8.4
+
+- GHC is now version 9.8.4
+- cabal-install is no 3.10.3.0
+- fourmolu is now 0.15.0.0.
+
 ### GHC 9.8.2
 
 - GHC is now version 9.8.2
