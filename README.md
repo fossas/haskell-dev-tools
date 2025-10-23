@@ -41,6 +41,7 @@ fossas/fossa-cli repo.
 
 - GHC is now version 9.8.4
 - cabal-install is now 3.12.1.0
+- Multi-platform support: Build images for `linux/amd64` and `linux/arm64`
 
 ### GHC 9.8.2
 
