@@ -37,6 +37,11 @@ fossas/fossa-cli repo.
 
 ## Changelog
 
+### GHC 9.8.4
+
+- GHC is now version 9.8.4
+- cabal-install is now 3.12.1.0
+
 ### GHC 9.8.2
 
 - GHC is now version 9.8.2

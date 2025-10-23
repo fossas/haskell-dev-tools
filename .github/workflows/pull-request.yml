@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
+
     steps:
     - uses: actions/checkout@v2
 
@@ -36,12 +36,12 @@ jobs:
 
     - name: run shellcheck
       run: shellcheck **/*.*sh
-  
+
   docker-lint:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
+
     steps:
     - uses: actions/checkout@v2
 
@@ -53,10 +53,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -72,7 +75,7 @@ jobs:
     - name: Get git short hash
       id: shorthash
       run: |
-        echo "::set-output name=shorthash::$(git rev-parse --short HEAD)"    
+        echo "::set-output name=shorthash::$(git rev-parse --short HEAD)"
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -82,6 +85,7 @@ jobs:
         tags: ${{ format('haskell-dev-tools-test:{0}', steps.shorthash.outputs.shorthash) }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
+        platforms: linux/amd64,linux/arm64
 
     - # Temp fix
       # https://github.com/docker/build-push-action/issues/252
